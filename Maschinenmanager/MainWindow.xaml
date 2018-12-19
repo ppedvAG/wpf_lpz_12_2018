@@ -5,8 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maschinenmanager"
         mc:Ignorable="d"
+        KeyUp="Window_KeyUp"
+        PreviewMouseUp="Window_PreviewMouseUp"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <!--Attached Properties-->
+        <TextBlock TextAlignment="Center" DockPanel.Dock="Top" Background="Aqua" FontSize="30">  <Underline>Maschinenmanager</Underline></TextBlock>
+        <TextBlock TextAlignment="Center" DockPanel.Dock="Bottom" Background="LightGreen" FontSize="20">Impressum</TextBlock>
+        <StackPanel DockPanel.Dock="Left" Background="Red">
+            <!--Thickness-Objekt wird mittels TypeConverter aus XAML-String erzeugt-->
+            <Button Margin="10">Neu</Button>
+            <Button x:Name="cleanButton" Margin="10,0,10,0">Säuberungsmodus aktivieren</Button>
+            <Button Margin="10">...</Button>
+        </StackPanel>
+        <Grid Background="Orange">
+            <!--Property-Element-Syntax-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <!--Children-->
+            <Grid Margin="10 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition /> <!--Height="*" ist Default-->
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <!--Children-->
+                <TextBlock VerticalAlignment="Center" >Hersteller:</TextBlock>
+                <TextBox x:Name="tbHersteller" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Grid.Column="2" ></TextBox>
+                
+                <TextBlock Grid.Row="1" VerticalAlignment="Center"  >Lieferbar:</TextBlock>
+                <CheckBox  x:Name="cbLieferbar" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" />
+
+                <TextBlock Grid.Row="2" VerticalAlignment="Center" >Rotation Class:</TextBlock>
+                <!--Attached Events-->
+                <WrapPanel RadioButton.Checked="RadioButton_Checked" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                    <RadioButton>
+                        <local:RotationClasses>High</local:RotationClasses>
+                    </RadioButton>
+                    <RadioButton>
+                        <local:RotationClasses>Middle</local:RotationClasses>
+                    </RadioButton>
+                    <RadioButton>
+                        <local:RotationClasses>Low</local:RotationClasses>
+                    </RadioButton>
+                </WrapPanel>
+                
+                <TextBlock HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" >
+                     Preis: <Run Text="{Binding ElementName=sliderPreis,Path=Value,Mode=OneWay,StringFormat=00000.00}" /> €
+                </TextBlock>
+                <Slider x:Name="sliderPreis"  Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Minimum="1000" Maximum="10000" TickFrequency="0.01" IsSnapToTickEnabled="True" />
+
+            </Grid>
+            <Canvas Grid.Row="1" Background="Brown">
+                <Button Canvas.Left="10" Canvas.Top="10">Abbrechen</Button>
+                <Button Click="Erzeugen_Button_Click" Canvas.Right="10" Canvas.Bottom="10">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://visualpharm.com/assets/614/Create-595b40b65ba036ed117d39b2.svg" />
+                        <TextBlock>Erzeugen</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Line Canvas.Bottom="40" Stroke="Red" StrokeThickness="2" X1="0" X2="200" Y1="0" Y2="10" Canvas.Left="10" Fill="Green" />
+                <Ellipse Height="10" Width="10" Fill="Fuchsia" />
+            </Canvas>
+        </Grid>
+    </DockPanel>
 </Window>
