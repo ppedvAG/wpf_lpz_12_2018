@@ -1,0 +1,22 @@
+﻿<Application x:Class="Validierung.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Validierung"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <local:DateTimeToStringConverter x:Key="dateConverter" />
+        <ControlTemplate x:Key="errorTemplate">
+            <StackPanel>
+                <Grid>
+                    <!--Das zu dekorierende Element-->
+                    <AdornedElementPlaceholder HorizontalAlignment="Stretch" x:Name="adorner" />
+                    <TextBlock Margin="0 0 10 0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="Red" FontWeight="ExtraBold">!</TextBlock>
+                </Grid>
+                <TextBlock Foreground="Red" Text="{Binding ElementName=adorner,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+            </StackPanel>
+        </ControlTemplate>
+        <Style TargetType="TextBox">
+            <EventSetter Event="TextChanged" Handler="TextBox_TextChanged" />
+        </Style>
+    </Application.Resources>
+</Application>

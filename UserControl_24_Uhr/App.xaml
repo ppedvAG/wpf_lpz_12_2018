@@ -1,0 +1,9 @@
+﻿<Application x:Class="UserControl_24_Uhr.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UserControl_24_Uhr"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <local:IntToDateTimeConverter x:Key="timeConverter" />
+    </Application.Resources>
+</Application>

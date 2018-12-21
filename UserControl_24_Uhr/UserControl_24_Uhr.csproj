@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C40BBF9A-4E7F-47E4-8ECE-248C97D7FFBE}</ProjectGuid>
+    <ProjectGuid>{D8A785C1-06FD-4206-80F0-A39B1F8DBDEF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Maschinenmanager</RootNamespace>
-    <AssemblyName>Maschinenmanager</AssemblyName>
+    <RootNamespace>UserControl_24_Uhr</RootNamespace>
+    <AssemblyName>UserControl_24_Uhr</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IntToDateTimeConverter.cs" />
+    <Compile Include="UBootUhr.xaml.cs">
+      <DependentUpon>UBootUhr.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,19 +71,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sprachen\Deutsch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Sprachen\Englisch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Dark.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Normal.xaml">
+    <Page Include="UBootUhr.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,12 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UserControl_24_Uhr\UserControl_24_Uhr.csproj">
-      <Project>{d8a785c1-06fd-4206-80f0-a39b1f8dbdef}</Project>
-      <Name>UserControl_24_Uhr</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,31 @@
         xmlns:local="clr-namespace:DataTemplates"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <d:Window.DataContext>
+        <!--x:Type entspricht typeof(...)-->
+        <x:Array Type="{x:Type local:Maschine}">
+            <local:Maschine Hersteller="Geschirrspüler"  Lieferbar="True" RotationClass="Medium" />
+            <local:Maschine Hersteller="Herd"  Lieferbar="False" RotationClass="Medium" />
+            <local:Maschine Hersteller="Rasenmäher"  Lieferbar="True" RotationClass="Medium" />
+        </x:Array>
+    </d:Window.DataContext>
+    <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+
+            <TextBlock>Anzahl Maschinen: <Run Text="{Binding Count,Mode=OneWay}"  /></TextBlock>
+            <ListBox Margin="5" MaxHeight="300" x:Name="listbox1" 
+                 ItemsSource="{Binding Mode=OneWay}" 
+                 ItemTemplate="{StaticResource maschinenTemplate}"/>
+            <Button Click="Button_Neu_Click">Neue Maschine</Button>
+            <Button Click="Button_Delete_Click">Maschine löschen</Button>
+            <Button Click="Button_Lieferstop_Click">Lieferstop!</Button>
+        </StackPanel>
+        <Viewbox Margin="30">
+
+            <ContentPresenter Content="{Binding ElementName=listbox1,Path=SelectedItem,Mode=OneWay}"
+                          ContentTemplate="{StaticResource maschinenTemplate}" />
+        </Viewbox>
+    </DockPanel>
+    <!--</ScrollViewer>-->
 </Window>

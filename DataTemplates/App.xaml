@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:DataTemplates"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!--Im DataTemplate ist der DataContext immer das anzuzeigende Objekt (Maschine)-->
+        <DataTemplate DataType="{x:Type local:Maschine}" x:Key="maschinenTemplate">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel x:Name="stackpanel">
+                    <TextBox Text="{Binding Path=Hersteller,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <CheckBox IsChecked="{Binding Lieferbar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">Lieferbar</CheckBox>
+                    <ComboBox ItemsSource="{x:Static local:Maschine.RotationClassesValues}" 
+                                  SelectedItem="{Binding RotationClass,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <DatePicker Visibility="Visible" x:Name="datepicker" SelectedDate="{Binding LieferDatum,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <DataTemplate.Triggers>
+                <!--if(maschine.Lieferbar == false)-->
+                <DataTrigger Binding="{Binding Lieferbar,Mode=OneWay}" Value="False">
+                    <Setter TargetName="datepicker" Property="Visibility" Value="Collapsed"  />
+                    <Setter TargetName="stackpanel" Property="Background" Value="Red"  />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+            
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Maschine}" x:Key="maschinenTemplateShort">
+            <TextBlock Text="{Binding Hersteller,Mode=OneWay}" />
+        </DataTemplate>
     </Application.Resources>
 </Application>

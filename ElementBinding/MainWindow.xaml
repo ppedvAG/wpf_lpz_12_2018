@@ -6,12 +6,17 @@
         xmlns:local="clr-namespace:ElementBinding"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel VerticalAlignment="Center" Margin="50">
-        <Slider Margin="0 0 0 20" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slider" />
-        <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=OneWay}" />
-        <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
-        <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox x:Name="textboxExplicit" Height="{Binding ElementName=slider,Path=Value,Mode=OneWay}" Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=Explicit}" />
-        <Button Click="Button_Click">Update Source</Button>
-    </StackPanel>
+    <Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" >
+            <StackPanel   Margin="50">
+                <Slider Margin="0 0 0 20" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" x:Name="slider" />
+                <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=OneWay}" />
+                <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" />
+                <TextBox Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox x:Name="textboxExplicit" Height="{Binding ElementName=slider,Path=Value,Mode=OneWay}" Text="{Binding ElementName=slider,Path=Value,Mode=TwoWay,UpdateSourceTrigger=Explicit}" />
+                <Button Click="Button_Click">Update Source</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>

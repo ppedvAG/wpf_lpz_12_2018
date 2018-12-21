@@ -36,7 +36,8 @@ namespace Maschinenmanager
             double preis = sliderPreis.Value;
 
             //Interpolated Strings
-            MessageBox.Show($"{hersteller} ({preis} Euro), Lieferbar: {lieferbar}, RotationClass: {_lastRotationValue}");
+            string localizedString = Application.Current.Resources["messagebox"].ToString();
+            MessageBox.Show(string.Format(localizedString, hersteller, preis, lieferbar, _lastRotationValue));
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -102,6 +103,29 @@ namespace Maschinenmanager
             if(e.Key == Key.Escape && _cleaningMode)
             {
                 _cts?.Cancel();
+            }
+        }
+
+        private void Sprache_Menu_Click(object sender, RoutedEventArgs e)
+        {
+            if(e.OriginalSource is MenuItem item)
+            {
+                string filename = item.Tag.ToString();
+                //https://docs.microsoft.com/de-de/dotnet/framework/wpf/app-development/pack-uris-in-wpf
+                //relative Pfade innerhalb der Assembly: pack://application:,,,/
+                //relative Pfade im Output-Directory: pack://siteOfOrigin:,,,/
+
+                int index = filename.Contains("Sprachen") ? 0 : 1;
+
+                Application.Current.Resources.MergedDictionaries[index].Source = new Uri($"pack://application:,,,/{filename}");
+                //optional: Fenster neu laden (wenn StaticResource statt DynamicResource benutzt wird)
+
+                
+                MainWindow window = new MainWindow();
+                window.Left = this.Left;
+                window.Top = this.Top;
+                window.Show();
+                this.Close();
             }
         }
     }
