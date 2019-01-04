@@ -18,14 +18,14 @@
         <Setter Property="Background" Value="Black" />
     </Style>
     
-    <!--<Style TargetType="StackPanel" BasedOn="{StaticResource panelStyle}" />
+    <!--<Style TargetType="StackPanel" BasedOn="{StaticResource panelStyle}" />-->
     <Style TargetType="DockPanel" BasedOn="{StaticResource panelStyle}" />
-    <Style TargetType="Grid" BasedOn="{StaticResource panelStyle}" />-->
+    <!--<Style TargetType="Grid" BasedOn="{StaticResource panelStyle}" />-->
 
     <Style TargetType="TextBox" BasedOn="{StaticResource frameworkStyle}"></Style>
     <Style TargetType="Slider" BasedOn="{StaticResource frameworkStyle}"></Style>
     <Style TargetType="CheckBox" BasedOn="{StaticResource frameworkStyle}">
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="Foreground" Value="White" />
+        <!--<Setter Property="Background" Value="Black" />-->
+        <!--<Setter Property="Foreground" Value="White" />-->
     </Style>
 </ResourceDictionary>

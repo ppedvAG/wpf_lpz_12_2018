@@ -4,15 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Books.Views"
+        xmlns:usercontrols="clr-namespace:Books.UserControls"
         xmlns:vm="clr-namespace:Books.ViewModels"
         mc:Ignorable="d"
+        Background="{StaticResource windowBackground}"
         Title="MainView" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainViewModel SearchTerm="WPF" />
     </Window.DataContext>
-    <StackPanel>
-        <TextBox Text="{Binding SearchTerm,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <Button Command="{Binding SearchCommand,Mode=OneWay}">Suche</Button>
-        <Button Command="{Binding FavoriteCommand,Mode=OneWay}">Favoriten</Button>
-    </StackPanel>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" FontSize="60" FontWeight="ExtraBold" Text="Books" TextAlignment="Center"  />
+        <Viewbox Margin="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBox Text="{Binding SearchTerm,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Gesture="Enter" Command="{Binding SearchCommand,Mode=OneWay}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <usercontrols:IconButton Text="Suche" Icon="&#xE71E;" Command="{Binding SearchCommand,Mode=OneWay}" />
+                <usercontrols:IconButton Text="Favoriten" Icon="&#xE735;" Command="{Binding FavoriteCommand,Mode=OneWay}" />
+            </StackPanel>
+        </Viewbox>
+    </DockPanel>
 </Window>

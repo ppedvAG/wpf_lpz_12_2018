@@ -2,8 +2,45 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Books"
+             xmlns:helper="clr-namespace:Books.Helper"
+             xmlns:models="clr-namespace:Books.Models"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainView.xaml">
     <Application.Resources>
-         
+        <helper:StringArrayToStringConverter x:Key="stringConv" />
+        <DataTemplate DataType="{x:Type models:Book}" x:Key="bookFavoriteTemplate">
+            <Grid x:Name="favoriteGrid">
+                <StackPanel VerticalAlignment="Center">
+                    <Button Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window,AncestorLevel=1},Path=DataContext.AddFavoriteCommand}"
+                            
+                                        CommandParameter="{Binding Mode=OneWay}">Hinzufügen</Button>
+                    <Button Command="{Binding  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window,AncestorLevel=1},Path=DataContext.RemoveFavoriteCommand,Mode=OneWay}"
+                                        CommandParameter="{Binding Mode=OneWay}">Entfernen</Button>
+                </StackPanel>
+            </Grid>
+
+            <!--Trigger-->
+            <DataTemplate.Triggers>
+                <!--if(book.IsFavorite == true) {-->
+                <DataTrigger Binding="{Binding IsFavorite,Mode=OneWay}" Value="True">
+                    <!--favoriteGrid.Background == Brushes.Green; }-->
+                    <Setter TargetName="favoriteGrid" Property="Background" Value="Green" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+
+        <RadialGradientBrush x:Key="windowBackground">
+            <GradientStop Color="Orange" Offset="0.3" />
+            <GradientStop Color="Yellow" Offset="0.6" />
+            <GradientStop Color="LightGoldenrodYellow" Offset="0.9" />
+        </RadialGradientBrush>
+
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="15" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
     </Application.Resources>
 </Application>

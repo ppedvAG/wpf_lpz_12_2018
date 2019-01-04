@@ -44,13 +44,22 @@ namespace UserControl_24_Uhr
             }
         }
 
+
+
+
+
         public Style BorderStyle
         {
-            set
-            {
-                clockBorder.Style = value;
-            }
+            get { return (Style)GetValue(BorderStyleProperty); }
+            set { SetValue(BorderStyleProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for BorderStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BorderStyleProperty =
+            DependencyProperty.Register("BorderStyle", typeof(Style), typeof(UBootUhr), new PropertyMetadata(null));
+
+
+
 
         public TimeSpan Time
         {
@@ -89,6 +98,9 @@ namespace UserControl_24_Uhr
         public UBootUhr()
         {
             InitializeComponent();
+
+            BorderStyle = this.Resources["generalStyle"] as Style;
+
             _cts = new CancellationTokenSource();
 
             Task.Factory.StartNew(() =>
@@ -96,7 +108,7 @@ namespace UserControl_24_Uhr
                 while (!_cts.Token.IsCancellationRequested)
                 {
                     Thread.Sleep(1000);
-                    clockBorder.Dispatcher.Invoke(() =>
+                    borderRotate.Dispatcher.Invoke(() =>
                     {
                         Time = Time.Add(TimeSpan.FromHours(1));
                     });

@@ -17,9 +17,9 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <DoubleAnimation 
-                                            From="{Binding ElementName=borderTranslate,Path=X,Mode=OneWay}"
-                                            To="{Binding ElementName=borderTranslate,Path=X,Mode=OneWay}"
-                                            Duration="0:0:0.500"
+                                            From="0"
+                                            To="20"
+                                            Duration="0:0:0.100"
                                             Storyboard.TargetName="borderTranslate"
                                             Storyboard.TargetProperty="X"
                                             FillBehavior="Stop"

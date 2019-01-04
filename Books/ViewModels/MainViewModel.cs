@@ -1,5 +1,6 @@
 ﻿using Books.Helper;
 using Books.Models;
+using Books.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,28 +25,44 @@ namespace Books.ViewModels
 
         public MainViewModel()
         {
+
+            //MessageBox.Show(12312321.Quersumme().ToString());
+
             SearchCommand = new DelegateCommand((object p) => { SearchBooks(); }, p => !string.IsNullOrWhiteSpace(SearchTerm));
-            FavoriteCommand = new DelegateCommand(p => ShowFavorites());
+            FavoriteCommand = new DelegateCommand(p => ShowFavorites(), p => FavoriteManager.FavoriteBooks.Count > 0);
         }
 
-        public async void SearchBooks()
+        public void SearchBooks()
         {
-            MessageBox.Show("Suche bücher für " + SearchTerm);
-            try
+            //mit dieser Variante (ohne async/await) wird der GUI-Thread auch bei größter Belastung nicht blockiert
+            Task.Factory.StartNew(() =>
             {
-                var books = await BookSearchService.SearchBooks(SearchTerm);
+                try
+                {
+                    var books = BookSearchService.SearchBooks(SearchTerm).Result;
+                    //Der Code innerhalb des Invokes wird auf dem GUI-Thread ausgeführt
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
 
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.Message);
-                return;
-            }
+                        ResultView view = new ResultView();
+                        view.DataContext = new ResultViewModel(books, "Suchergebnisse");
+                        view.ShowDialog();
+                    });
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.Message);
+                    return;
+                }
+            });
+            
         }
 
         public void ShowFavorites()
         {
-
+            ResultView view = new ResultView();
+            view.DataContext = new ResultViewModel(FavoriteManager.FavoriteBooks, "Favoriten");
+            view.ShowDialog();
         }
     }
 }

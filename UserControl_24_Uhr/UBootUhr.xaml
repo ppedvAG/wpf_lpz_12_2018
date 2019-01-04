@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UserControl_24_Uhr"
              mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="450">
     <UserControl.Resources>
-        <Style TargetType="Border">
+        <Style TargetType="Border" x:Key="generalStyle">
             <Setter Property="Background"  Value="Silver" />
             <Setter Property="BorderThickness"  Value="1" />
             <Setter Property="BorderBrush"  Value="Black" />
@@ -19,7 +20,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border x:Name="clockBorder"  Grid.RowSpan="2" CornerRadius="1000"  />
+        <Border Style="{Binding BorderStyle,Mode=OneWay}" Grid.RowSpan="2" CornerRadius="1000"  />
         <Border Grid.Row="1" HorizontalAlignment="Center" BorderThickness="1" BorderBrush="Black">
             <Border.RenderTransform>
                 <RotateTransform Angle="180" x:Name="borderRotate" />

@@ -10,13 +10,23 @@
                 <Grid>
                     <!--Das zu dekorierende Element-->
                     <AdornedElementPlaceholder HorizontalAlignment="Stretch" x:Name="adorner" />
-                    <TextBlock Margin="0 0 10 0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="Red" FontWeight="ExtraBold">!</TextBlock>
+                    <TextBlock x:Name="tbError" Margin="0 0 10 0" VerticalAlignment="Top" HorizontalAlignment="Right" Foreground="Red" FontWeight="ExtraBold">!</TextBlock>
                 </Grid>
-                <TextBlock Foreground="Red" Text="{Binding ElementName=adorner,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                <TextBlock x:Name="tbErrorDesc" Foreground="Red" Text="{Binding ElementName=adorner,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
             </StackPanel>
+            <ControlTemplate.Triggers>
+                <!--Blende die Dekorationselemente aus, wenn ValidationActived für diese TextBox auf false gesetzt ist-->
+                <DataTrigger Binding="{Binding ElementName=adorner,Path=AdornedElement.(local:ValidationHelper.ValidationActivated)}" Value="False">
+                    <Setter TargetName="tbError" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="tbErrorDesc" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>  
+            </ControlTemplate.Triggers>
         </ControlTemplate>
+
         <Style TargetType="TextBox">
-            <EventSetter Event="TextChanged" Handler="TextBox_TextChanged" />
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource errorTemplate}" />
+            <Setter Property="Margin" Value="0 0 0 20" />
         </Style>
+       
     </Application.Resources>
 </Application>

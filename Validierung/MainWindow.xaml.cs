@@ -24,5 +24,11 @@ namespace Validierung
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ValidationHelper.SetValidationActivated(textboxSize, true);
+            textboxSize.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
     }
 }

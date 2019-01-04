@@ -11,6 +11,8 @@
     </Window.DataContext>
     <Viewbox>
         <StackPanel Margin="20" VerticalAlignment="Center">
+            
+            <!--Validierung mittels ValidationRule-->
             <TextBox  x:Name="t1" HorizontalAlignment="Left" Width="200">
                 <TextBox.Text>
                     <Binding Path="Geburtsdatum" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource dateConverter}">
@@ -20,8 +22,12 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Margin="0 0 0 0" Text="{Binding Geburtsdatum,Mode=TwoWay,UpdateSourceTrigger=LostFocus,ValidatesOnExceptions=True}" HorizontalAlignment="Center" Width="100" />
-            <TextBox MinimCharacetres="20">
+            
+            <!--Validierung mittels Exceptions (Model-Seitig)-->
+            <TextBox Text="{Binding Geburtsdatum,Mode=TwoWay,UpdateSourceTrigger=LostFocus,ValidatesOnExceptions=True}" HorizontalAlignment="Center" Width="100" />
+            
+            <!--Validierung mittels ValidationRule, erst ab 3 eingegebenen Zeichen soll validiert werden--> 
+            <TextBox x:Name="textboxSize" local:ValidationHelper.MinimalValidationLength="3">
                 <TextBox.Text>
                     <Binding Path="Größe" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                         <Binding.ValidationRules>
@@ -29,12 +35,11 @@
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
-              
-                
             </TextBox>
-            <TextBlock Text="{Binding ElementName=t1,Path=(Validation.Errors)[0].ErrorContent}">
-                
-            </TextBlock>
+            
+            <!--Dieser Button sorgt dafür dass der Validierungsmodus für die letzte Textbox aktiviert wird,
+            auch wenn noch weniger als 3 Ziffern eingegeben wurden-->
+            <Button Click="Button_Click">Abschicken</Button>
         </StackPanel>
     </Viewbox>
 </Window>

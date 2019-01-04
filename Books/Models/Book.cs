@@ -1,4 +1,5 @@
 ﻿using Books.Helper;
+using System.Collections.ObjectModel;
 
 namespace Books.Models
 {
@@ -24,8 +25,9 @@ namespace Books.Models
         public string[] Authors
         {
             get { return _authors; }
-            set { SetValue(ref  _authors, value); }
+            set { SetValue(ref _authors, value); }
         }
+
 
         private int _pageCount;
 
